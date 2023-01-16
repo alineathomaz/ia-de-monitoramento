@@ -1,9 +1,9 @@
-img = "";
+song = "";
 status = "";
 objects = [];
 
 function preload(){
-    img = loadImage('dog_cat.jpg');
+    sound = loadSound('best_alarm.mp3');
 }
 
 function setup(){
@@ -31,8 +31,7 @@ function draw(){
         b = random(255);
         objectDetector.detect(video,gotResult);
         for (i = 0; i < objects.lenght; i++){
-            document.getElementById("status").innerHTML = " Status: Objeto detectado";
-            document.getElementById("numberOfObjects").innerHTML = "Quantidade de Objetos Detectados: "+ objetcs.lenght;
+           document.getElementById("status").innerHTML = " Status: Objetos detectados";
             fill(r,g,b);
             percent = floor(objects[i].confidence * 100);
             text(objects[i].label + " " + percent + "%", objects[i].x + 15, objects[i].y + 15);
@@ -40,20 +39,25 @@ function draw(){
             stroke(r,g,b);
             rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
         }
-
+if(objects[i].label == "person")
+{
+    document.getElementById("numberOfObjects").innerHTML = "Bebêencontrado";
+    console.log("stop");
+    song.stop();
+}
+        else
+        {
+            document.getElementById("numberOfObjects").innerHTML = "Bebê não  encontrado";
+            console.log("play");
+            song.play();
+        }
+        if(objects.lenght == 0)
+        {
+document.getElementById("numberOfObjects").innerHTML = "BebÊ não encontrado"
+            console.log("play");
+            song.play();
     }
-    /*
-    fill("red");
-    text("Dog", 45, 75);
-    noFill();
-    stroke("red");
-    rect(30, 60, 450, 350);
-    fill("red");
-    text("Cat", 320, 120);
-    noFill();
-    stroke("red");
-    rect(300, 90, 270, 320);
-    */
+    
 }
 function modelLoaded(){
     console.log("Model Loaded!")
@@ -67,5 +71,6 @@ function gotResult(error, results){
         objects = results;
     }
     console.log(results);
+    objects = results;
 }
 
