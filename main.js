@@ -3,7 +3,7 @@ status = "";
 objects = [];
 
 function preload(){
-    sound = loadSound('best_alarm.mp3');
+    song = loadSound('best_alarm.mp3');
 }
 
 function setup(){
@@ -62,7 +62,6 @@ document.getElementById("numberOfObjects").innerHTML = "BebÊ não encontrado"
 function modelLoaded(){
     console.log("Model Loaded!")
     status = true;
-    objectDetector.detect(video, gotResult);
 }
 
 function gotResult(error, results){
